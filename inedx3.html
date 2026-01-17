@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Logowania i Rejestracji</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #333;
+  position: relative;
+}
+.panel {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  width: 350px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.panel h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+.panel form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.panel input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+button:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.toggle-btn {
+  background: #f3f4f6;
+  color: #2563eb;
+  border: none;
+  cursor: pointer;
+}
+.toggle-btn:hover {
+  background: #e5e7eb;
+}
+.account {
+  position: absolute;
+  top: 20px;
+  right: 70px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+}
+.account img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+.menu-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.menu-icon div {
+  height: 4px;
+  background: white;
+  border-radius: 2px;
+}
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 55px;
+  right: 20px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  flex-direction: column;
+  width: 150px;
+  z-index: 10;
+}
+.dropdown a {
+  padding: 10px;
+  text-decoration: none;
+  color: #2563eb;
+  border-bottom: 1px solid #ddd;
+}
+.dropdown a:last-child {
+  border-bottom: none;
+}
+.dropdown a:hover {
+  background: #f3f4f6;
+}
+</style>
+</head>
+<body>
+
+<div class="account" onclick="logout()">
+  <img src="https://cdn-icons-png.flaticon.com/512/709/709612.png" alt="Główeczko">
+  <span>Wyloguj się</span>
+</div>
+
+<div class="menu-icon" onclick="toggleDropdown()">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+<div class="dropdown" id="dropdownMenu">
+  <a href="#regulamin">Regulamin</a>
+  <a href="#social">Sociale</a>
+</div>
+
+<div class="panel">
+  <h2>Witaj!</h2>
+  <form id="loginForm">
+    <input type="text" placeholder="Login" required>
+    <input type="password" placeholder="Hasło" required>
+    <button type="submit">Zaloguj się</button>
+    <button type="button" class="toggle-btn" onclick="showRegister()">Przejdź do rejestracji</button>
+  </form>
+
+  <form id="registerForm" style="display:none;">
+    <input type="text" placeholder="Login" required>
+    <input type="email" placeholder="Email" required>
+    <input type="password" placeholder="Hasło" required>
+    <button type="submit">Zarejestruj się</button>
+    <button type="button" class="toggle-btn" onclick="showLogin()">Wróć do logowania</button>
+  </form>
+</div>
+
+<script>
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+const dropdown = document.getElementById('dropdownMenu');
+
+loginForm.addEventListener('submit', function(e){ e.preventDefault(); alert('Zalogowano pomyślnie!'); });
+registerForm.addEventListener('submit', function(e){ e.preventDefault(); alert('Zarejestrowano pomyślnie!'); });
+
+function showRegister(){ loginForm.style.display='none'; registerForm.style.display='flex'; }
+function showLogin(){ registerForm.style.display='none'; loginForm.style.display='flex'; }
+function logout(){ alert('Wylogowano z konta'); }
+function toggleDropdown(){ dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex'; }
+</script>
+
+</body>
+</html>
